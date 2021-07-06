@@ -20,13 +20,13 @@
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm()" >登录</el-button>
+                    <el-button type="primary" @click="submitForm" >登录</el-button>
                 </div>
                 <div class="link-line">
-                    <a class="link-register" href="http://192.168.3.96:8080/#/register">
+                    <a class="link-register" @click="register" style="cursor:pointer">
                         注册
                     </a>
-                    <a class="link-forget" href="http://192.168.3.96:8080/#/retrieve">
+                    <a class="link-forget" @click="retrieve" style="cursor:pointer">
                         忘记密码?
                     </a>
                 </div>
@@ -107,6 +107,14 @@
                     }
                 });
 
+            },
+
+            register(){
+                this.$router.push('/register')
+            },
+
+            retrieve(){
+                this.$router.push('/retrieve')
             },
 
             focusPwd(){
