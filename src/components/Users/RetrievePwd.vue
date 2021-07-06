@@ -28,6 +28,5 @@
         min-width: 1325px;
     }
 
-
 </style>
 
