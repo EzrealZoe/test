@@ -3,59 +3,121 @@
     <div class="register-wrap">  <!--整个页面包装器wrap-->
         <div class="ms-register"> <!--注册面板的区域-->
             <div class="ms-title"><!--注册的标题-->
-                <span class="register-title" style="front-size: 20px;">注册
+                <span
+                        class="register-title"
+                        style="front-size: 20px;">注册
                 </span>
             </div>
-            <el-form :model="param" :rules="rules" ref="register" label-width="0px" class="ms-content">
+            <el-form
+                    :model="param"
+                    :rules="rules"
+                    ref="register"
+                    label-width="0px"
+                    class="ms-content">
                 <el-form-item prop="mail">
-                    <el-tooltip class="item" effect="dark" content="请您输入存在的邮箱~" placement="top">
-                        <el-input type="text" v-model="param.mail" placeholder="请输入您的邮箱"
-                                  id="mail" clearable prefix-icon="el-icon-user"
-                                  @keyup.enter.native="focusUsername">
+                    <el-tooltip
+                            class="item"
+                            effect="dark"
+                            content="请您输入存在的邮箱~"
+                            placement="top">
+                        <el-input
+                                type="text"
+                                v-model="param.mail"
+                                placeholder="请输入您的邮箱"
+                                id="mail"
+                                clearable
+                                prefix-icon="el-icon-user"
+                                @keyup.enter.native="focusUsername">
                         </el-input>
                     </el-tooltip>
                 </el-form-item>
 
                 <el-form-item prop="username">
-                    <el-tooltip class="item" effect="dark" content="请您输入用户名：4-20个字节，首字母必须为英文，由字母、数字、_组成"
-                                placement="top">
-                        <el-input type="text" v-model="param.username" placeholder="请输入您的用户名"
-                                  id="username" clearable prefix-icon="el-icon-user"
-                                  @keyup.enter.native="focusNickname">
+                    <el-tooltip
+                            class="item"
+                            effect="dark"
+                            content="请您输入用户名：4-20个字节，首字母必须为英文，由字母、数字、_组成"
+                            placement="top">
+                        <el-input
+                                type="text"
+                                v-model="param.username"
+                                placeholder="请输入您的用户名"
+                                id="username"
+                                clearable
+                                prefix-icon="el-icon-user"
+                                @keyup.enter.native="focusNickname">
                         </el-input>
                     </el-tooltip>
                 </el-form-item>
 
                 <el-form-item prop="nickname">
-                    <el-tooltip class="item" effect="dark" content="请您输入昵称：4-20个字节，首字母必须为英文，由字母、数字、_组成" placement="top">
-                        <el-input type="text" v-model="param.nickname" placeholder="请输入您的昵称，不填则默认为用户名"
-                                  clearable prefix-icon="el-icon-edit" id="nickname"
-                                  @keyup.enter.native="focusPwd1">
+                    <el-tooltip
+                            class="item"
+                            effect="dark"
+                            content="请您输入昵称：4-20个字节，首字母必须为英文，由字母、数字、_组成"
+                            placement="top">
+                        <el-input
+                                type="text"
+                                v-model="param.nickname"
+                                placeholder="请输入您的昵称，不填则默认为用户名"
+                                clearable
+                                prefix-icon="el-icon-edit"
+                                id="nickname"
+                                @keyup.enter.native="focusPwd1">
                         </el-input>
                     </el-tooltip>
                 </el-form-item>
 
                 <el-form-item prop="password1">
-                    <el-tooltip class="item" effect="dark" content="请您输入密码：6-27个字符" placement="top">
-                        <el-input type="password" auto-complete="off" v-model="param.password1" id="password1"
-                                  placeholder="请输入密码" clearable prefix-icon="el-icon-key"
-                                  @keyup.enter.native="focusPwd2">
+                    <el-tooltip
+                            class="item"
+                            effect="dark"
+                            content="请您输入密码：6-27个字符"
+                            placement="top">
+                        <el-input
+                                type="password"
+                                auto-complete="off"
+                                v-model="param.password1"
+                                id="password1"
+                                placeholder="请输入密码"
+                                clearable
+                                prefix-icon="el-icon-key"
+                                @keyup.enter.native="focusPwd2">
                         </el-input>
                     </el-tooltip>
                 </el-form-item>
 
                 <el-form-item prop="password2">
-                    <el-tooltip class="item" effect="dark" content="请您重复输入您的密码~" placement="top">
-                        <el-input type="password" auto-complete="off" v-model="param.password2" id="password2"
-                                  placeholder="请确认密码" clearable prefix-icon="el-icon-key"
-                                  @keyup.enter.native="focusSex">
+                    <el-tooltip
+                            class="item"
+                            effect="dark"
+                            content="请您重复输入您的密码~"
+                            placement="top">
+                        <el-input
+                                type="password"
+                                auto-complete="off"
+                                v-model="param.password2"
+                                id="password2"
+                                placeholder="请确认密码"
+                                clearable
+                                prefix-icon="el-icon-key"
+                                @keyup.enter.native="focusSex">
                         </el-input>
                     </el-tooltip>
                 </el-form-item>
 
                 <el-form-item prop="sex">
-                    <el-radio v-model="param.sex" style="right:0" label="1" id="sex">男</el-radio>
-                    <el-radio v-model="param.sex" style="right:0" label="2">女</el-radio>
+                    <el-radio
+                            v-model="param.sex"
+                            style="right:0"
+                            label="1"
+                            id="sex">男
+                    </el-radio>
+                    <el-radio
+                            v-model="param.sex"
+                            style="right:0"
+                            label="2">女
+                    </el-radio>
                 </el-form-item>
 
                 <el-form-item prop="birthday">
@@ -67,7 +129,11 @@
                 </el-form-item>
 
                 <el-form-item prop="province">
-                    <el-select v-model="param.province" placeholder="请选择省份" @change="provinceChanged" id="province">
+                    <el-select
+                            v-model="param.province"
+                            placeholder="请选择省份"
+                            @change="provinceChanged"
+                            id="province">
                         <el-option
                                 v-for="item in param.optionsProvince"
                                 :key="item.value"
@@ -79,7 +145,11 @@
                 </el-form-item>
 
                 <el-form-item prop="city">
-                    <el-select v-model="param.city" placeholder="请选择城市" @change="cityChanged" id="city">
+                    <el-select
+                            v-model="param.city"
+                            placeholder="请选择城市"
+                            @change="cityChanged"
+                            id="city">
                         <el-option
                                 v-for="item in param.optionsCity"
                                 :key="item.value"
@@ -90,7 +160,9 @@
                 </el-form-item>
 
                 <el-form-item prop="area">
-                    <el-select v-model="param.area" placeholder="请选择县区">
+                    <el-select
+                            v-model="param.area"
+                            placeholder="请选择县区">
                         <el-option
                                 v-for="item in param.optionsArea"
                                 :key="item.value"
@@ -102,7 +174,10 @@
 
 
                 <div class="register-btn">
-                    <el-button type="primary" @click="submitForm()">注册</el-button>
+                    <el-button
+                            type="primary"
+                            @click="submitForm()">注册
+                    </el-button>
                 </div>
             </el-form>
         </div>
@@ -111,7 +186,7 @@
 
 <script>
     //import axios from "axios";
-    import {c_district, district_cate} from "../../js/common";
+    import {c_district, district_cate} from "E:/fore/src/assets/js/common";
     // ES5.0 6.0语法，创建默认Vue对象
     export default {
         data() {
@@ -277,16 +352,16 @@
                         {validator: validatorPwd, trigger: 'blur'}],
                     password2: [{required: true, message: "请输入密码！", trigger: "blur"},
                         {validator: validatorPwdConsistency, trigger: 'blur'}],
-                    sex: [{required: true, message: "请选择性别！", trigger: "blur"},
-                        {validator: validatorSex, trigger: 'blur'}],
+                    sex: [
+                        {validator: validatorSex, trigger: 'change'}],
                     birthday: [{required: true, message: "请选择生日！", trigger: "blur"},
                         {validator: validatorBirthday, trigger: 'blur'}],
-                    province: [{trigger: "blur"},
-                        {validator: validatorProvince, trigger: 'blur'}],
+                    province: [{required: true, message: "请选择省份！", trigger: "blur"},
+                        {validator: validatorProvince, trigger: 'change'}],
                     city: [{required: true, message: "请选择城市！", trigger: "blur"},
-                        {validator: validatorCity, trigger: 'blur'}],
+                        {validator: validatorCity, trigger: 'change'}],
                     area: [{required: true, message: "请选择县区！", trigger: "blur"},
-                        {validator: validatorArea, trigger: 'blur'}],
+                        {validator: validatorArea, trigger: 'change'}],
                 },
             };
         },
@@ -318,8 +393,8 @@
             provinceChanged(n) {
                 this.param.optionsCity = [];
                 this.param.optionsArea = [];
-                this.param.city = '';
-                this.param.area = '';
+                this.param.city = null;
+                this.param.area = null;
                 for (let i = 0; i < district_cate[n].length; ++i) {
                     this.param.optionsCity.push({value: district_cate[n][i], label: c_district[district_cate[n][i]][2]})
                 }
@@ -328,7 +403,7 @@
             //选择城市后改变县区信息
             cityChanged(n) {
                 this.param.optionsArea = [];
-                this.param.area = '';
+                this.param.area = null;
                 for (let i = 0; i < district_cate[n].length; ++i) {
                     this.param.optionsArea.push({value: district_cate[n][i], label: c_district[district_cate[n][i]][2]})
                 }
@@ -364,7 +439,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        background-image: url(../../assets/img/3.jpg);
+        background-image: url(E:/fore/src/assets/images/3.jpg);
         background-size: 100%;
         background-repeat: no-repeat;
         min-width: 1325px;

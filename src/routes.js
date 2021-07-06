@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Register from "./components/Users/Register";
-import Login from "./components/Users/Login"
-import RetrievePwd from "./components/Users/RetrievePwd";
+import Register from "./pages/Users/register";
+import Login from "./pages/Users/login"
+import RetrievePwd from "./pages/Users/retrievePwd";
 
 
 Vue.use(Router);

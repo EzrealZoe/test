@@ -1,6 +1,8 @@
 <template>
     <!-- HTML UI:只有一个根节点-->
-    <div class="retrieve-wrap">  <!--整个页面包装器wrap-->
+    <div
+            class="retrieve-wrap"
+    >  <!--整个页面包装器wrap-->
 
     </div>
 </template>
@@ -22,7 +24,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        background-image: url(../../assets/img/4.jpg);
+        background-image: url(E:/fore/src/assets/images/4.jpg);
         background-size: 100%;
         background-repeat: no-repeat;
         min-width: 1325px;
