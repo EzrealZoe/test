@@ -122,6 +122,7 @@
 
                 <el-form-item prop="birthday">
                     <el-date-picker
+                            :picker-options="pickerOptions"
                             v-model="param.birthday"
                             type="date"
                             placeholder="选择出生日期">
@@ -320,7 +321,11 @@
             }
 
             return {
-
+                pickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() >Date.now()
+                    }
+                },
                 c_district, district_cate,
                 param: {
                     optionsProvince: [],
