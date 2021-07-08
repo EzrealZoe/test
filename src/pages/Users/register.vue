@@ -188,6 +188,7 @@
 <script>
     //import axios from "axios";
     import {c_district, district_cate} from "E:/fore/src/assets/js/common";
+    import axios from "axios";
     // ES5.0 6.0语法，创建默认Vue对象
     export default {
         data() {
@@ -207,7 +208,7 @@
 
             // 用户名验证
             let validatorUsername = (rule, value, callback) => {
-                var reg = /^[A-Za-z][A-Za-z0-9_]{3,19}$/;
+                var reg = /^[A-Za-z][A-Za-z0-9_]{0,19}$/;
                 if (reg.test(value)) {
                     callback()
                 } else {
@@ -235,6 +236,7 @@
                     } else {
                         callback(new Error('请输入合法昵称！'))
                     }
+                    this.param.nickname = this.param.username;
                 }
             }
 
@@ -323,17 +325,16 @@
             return {
                 pickerOptions: {
                     disabledDate(time) {
-                        return time.getTime() >Date.now()
+                        return time.getTime() > Date.now()
                     }
                 },
+                servicePath: 'http://192.168.3.96/test/',
                 c_district, district_cate,
                 param: {
                     optionsProvince: [],
                     province: '',
-
                     optionsCity: [],
                     city: "",
-
                     optionsArea: [],
                     area: "",
                     username: null,
@@ -351,7 +352,7 @@
                         {validator: validatorMail, trigger: "blur"}],
                     username: [{required: true, message: "请输入用户名！", trigger: "blur"},
                         {validator: validatorUsername, trigger: "blur"}],
-                    nickname: [{trigger: "blur"},
+                    nickname: [
                         {validator: validatorNickname, trigger: "blur"}],
                     password1: [{required: true, message: "请输入密码！", trigger: "blur"},
                         {validator: validatorPwd, trigger: 'blur'}],
@@ -382,10 +383,38 @@
         methods: {
             //提交
             submitForm() {
+                axios.defaults.withCredentials = true;
                 this.$refs.register.validate(valid_result => {
                     if (valid_result) {   // 本地校验通过
-                        // axios发起post请求 ,password md5加密
-
+                        if (this.param.nickname == null) {
+                            this.param.nickname = this.param.username;
+                        }
+                        axios.post(this.servicePath + "register.php", {
+                            "mail": this.param.mail,
+                            "username": this.param.username,
+                            "nickname": this.param.nickname,
+                            "password": this.$md5(this.param.password1),
+                            "sex": this.param.sex,
+                            "birthday": this.param.birthday,
+                            "province": this.param.province,
+                            "city": this.param.city,
+                            "area": this.param.area,
+                        })
+                            .then(
+                                (response) => {
+                                    if(response.data.status==200){
+                                        this.$router.push('/exit')
+                                    }
+                                    else{
+                                        this.$message.error(response.data.status);
+                                    }
+                                })
+                            .catch(
+                                (err) => {
+                                    console.log(err);
+                                    this.$message.error("注册失败！");
+                                }
+                            );
                     } else {   // 本地校验没有通过
                         this.$message.error("输入信息不正确!");
                         return false;

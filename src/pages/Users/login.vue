@@ -20,7 +20,7 @@
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm" >登录</el-button>
+                    <el-button type="primary" @click="submitForm">登录</el-button>
                 </div>
                 <div class="link-line">
                     <a class="link-register" @click="register" style="cursor:pointer">
@@ -36,7 +36,8 @@
 </template>
 
 <script>
-    //import axios from "axios";    // import $ from "jquery"
+    import axios from "axios";
+
     export default {
         data: function () {
 
@@ -46,13 +47,11 @@
                 if (reg.test(value)) {
                     callback()
                 } else {
-                    if(value.length<4){
+                    if (value.length < 4) {
                         callback(new Error('用户名过短！'))
-                    }
-                    else if(value.length>20){
+                    } else if (value.length > 20) {
                         callback(new Error('用户名过长！'))
-                    }
-                    else{
+                    } else {
                         callback(new Error('请输入合法用户名！'))
                     }
                 }
@@ -64,13 +63,11 @@
                 if (reg.test(value)) {
                     callback()
                 } else {
-                    if(value.length<6){
+                    if (value.length < 6) {
                         callback(new Error('密码过短！'))
-                    }
-                    else if(value.length>27){
+                    } else if (value.length > 27) {
                         callback(new Error('密码过长！'))
-                    }
-                    else {
+                    } else {
                         callback(new Error('请输入合法密码！'))
                     }
                 }
@@ -78,6 +75,7 @@
             }
 
             return {
+                servicePath: 'http://192.168.3.96/test/',
                 param: {
                     username: null,
                     password: null,
@@ -91,15 +89,47 @@
                 },
             };
         },
-
+        created() {
+            //先使用cookie尝试登录
+            axios.defaults.withCredentials = true;
+            axios.get(this.servicePath + "login.php")
+                .then(
+                    (response) => {
+                        if (response.data.status == 200) {
+                            this.$router.push('/exit')
+                        }
+                    })
+                .catch(
+                    (err) => {
+                        console.log(err);
+                    }
+                );
+        },
         methods: {
             submitForm() {
                 this.$refs.login.validate(valid_result => {
                     if (valid_result) {// 本地校验通过
                         // axios发起post请求 ,password md5加密
-
-                    }
-                    else {   // 本地校验没有通过
+                        axios.post(this.servicePath + "login.php", {
+                            "username": this.param.username,
+                            "password": this.$md5(this.param.password),
+                        })
+                            .then(
+                                (response) => {
+                                    if (response.data.status == 200) {
+                                        this.$router.push('/exit')
+                                    }
+                                    else {
+                                        this.$message.error("账号或密码错误！");
+                                    }
+                                })
+                            .catch(
+                                (err) => {
+                                    console.log(err);
+                                    this.$message.error("账号或密码错误！");
+                                }
+                            );
+                    } else {   // 本地校验没有通过
                         this.$message.error("输入信息不正确!");
                         this.param.password = null;
                         this.param.username = null;
@@ -109,15 +139,15 @@
 
             },
 
-            register(){
+            register() {
                 this.$router.push('/register')
             },
 
-            retrieve(){
+            retrieve() {
                 this.$router.push('/retrieve')
             },
 
-            focusPwd(){
+            focusPwd() {
                 document.getElementById("password").focus();
             },
 
@@ -134,7 +164,7 @@
         height: 100%;
         background-image: url(../../assets/images/4.jpg);
         background-size: 100%;
-        background-repeat:no-repeat;
+        background-repeat: no-repeat;
         min-width: 1325px;
     }
 
@@ -181,32 +211,32 @@
         margin-bottom: 10px;
     }
 
-    .link-line{
-        float:left;
-        width:100%;
-        height:30px;
+    .link-line {
+        float: left;
+        width: 100%;
+        height: 30px;
         position: relative;
-        margin:auto;
+        margin: auto;
     }
 
-    .link-register{
+    .link-register {
         width: 40%;
         float: left;
         text-align: left;
         font-size: 11px;
         color: #a4a4a4;
-        text-decoration: underline ;
-        margin:auto 7px;
+        text-decoration: underline;
+        margin: auto 7px;
     }
 
-    .link-forget{
+    .link-forget {
         width: 40%;
         float: right;
         text-align: right;
         font-size: 11px;
         color: #a4a4a4;
-        text-decoration: underline ;
-        margin:auto 9px;
+        text-decoration: underline;
+        margin: auto 9px;
     }
 
 </style>

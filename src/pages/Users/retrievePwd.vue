@@ -1,17 +1,37 @@
 <template>
-    <!-- HTML UI:只有一个根节点-->
     <div
             class="retrieve-wrap"
-    >  <!--整个页面包装器wrap-->
-
+    >测试测试
     </div>
 </template>
 
 <script>
 
-    //import axios from "axios";
+    import axios from "axios";
     export default {
         data: function () {
+            return{
+                servicePath: 'http://192.168.3.96/test/',
+            }
+        },
+        created(){
+            //先使用cookie尝试登录
+            axios.defaults.withCredentials = true;
+            axios.get(this.servicePath + "login.php")
+                .then(
+                    (response) => {
+                        if(response.data.status==200)
+                        {
+                            this.$router.push('/exit')
+                        }
+                    })
+                .catch(
+                    (err) => {
+                        console.log(err);
+                        this.$message.error("服务器连接失败！");
+                    }
+                );
+
         },
         methods: {
         }
