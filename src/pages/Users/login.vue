@@ -118,8 +118,7 @@
                                 (response) => {
                                     if (response.data.status == 200) {
                                         this.$router.push('/exit')
-                                    }
-                                    else {
+                                    } else {
                                         this.$message.error("账号或密码错误！");
                                     }
                                 })

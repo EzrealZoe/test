@@ -402,10 +402,9 @@
                         })
                             .then(
                                 (response) => {
-                                    if(response.data.status==200){
+                                    if (response.data.status == 200) {
                                         this.$router.push('/exit')
-                                    }
-                                    else{
+                                    } else {
                                         this.$message.error(response.data.status);
                                     }
                                 })

@@ -28,13 +28,12 @@
             };
         },
         methods: {
-            exit(){
+            exit() {
                 axios.defaults.withCredentials = true;
                 axios.get(this.servicePath + "exit.php")
                     .then(
                         (response) => {
-                            if(response.data.status==200)
-                            {
+                            if (response.data.status == 200) {
                                 this.$router.push('/login')
                             }
                         })

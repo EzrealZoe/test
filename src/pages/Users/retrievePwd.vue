@@ -8,20 +8,20 @@
 <script>
 
     import axios from "axios";
+
     export default {
         data: function () {
-            return{
+            return {
                 servicePath: 'http://192.168.3.96/test/',
             }
         },
-        created(){
+        created() {
             //先使用cookie尝试登录
             axios.defaults.withCredentials = true;
             axios.get(this.servicePath + "login.php")
                 .then(
                     (response) => {
-                        if(response.data.status==200)
-                        {
+                        if (response.data.status == 200) {
                             this.$router.push('/exit')
                         }
                     })
@@ -33,8 +33,7 @@
                 );
 
         },
-        methods: {
-        }
+        methods: {}
     }
 </script>
 
