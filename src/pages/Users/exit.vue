@@ -23,19 +23,39 @@
         data: function () {
 
             return {
-                servicePath: 'http://192.168.3.96/test/',
+                servicePath: 'http://192.168.3.96/ci/public/index.php/auth/',
 
             };
+        },
+        created() {
+            //先使用cookie尝试登录
+            axios.defaults.withCredentials = true;
+            axios.get(this.servicePath + "login")
+                .then(
+                    (response) => {
+                        if (response.data.status != 200) {
+                            this.$router.push('/login')
+                        }
+
+                    })
+                .catch(
+                    (err) => {
+                        console.log(err);
+                    }
+                );
         },
         methods: {
             exit() {
                 axios.defaults.withCredentials = true;
-                axios.get(this.servicePath + "exit.php")
+                axios.get(this.servicePath + "exit")
                     .then(
                         (response) => {
                             if (response.data.status == 200) {
                                 this.$router.push('/login')
+                            } else {
+                                this.$message.error("退出登录失败！");
                             }
+
                         })
                     .catch(
                         (err) => {

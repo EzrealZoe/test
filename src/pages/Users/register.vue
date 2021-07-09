@@ -328,7 +328,7 @@
                         return time.getTime() > Date.now()
                     }
                 },
-                servicePath: 'http://192.168.3.96/test/',
+                servicePath: 'http://192.168.3.96/ci/public/index.php/auth/',
                 c_district, district_cate,
                 param: {
                     optionsProvince: [],
@@ -389,7 +389,7 @@
                         if (this.param.nickname == null) {
                             this.param.nickname = this.param.username;
                         }
-                        axios.post(this.servicePath + "register.php", {
+                        axios.post(this.servicePath + "register", {
                             "mail": this.param.mail,
                             "username": this.param.username,
                             "nickname": this.param.nickname,
@@ -399,10 +399,15 @@
                             "province": this.param.province,
                             "city": this.param.city,
                             "area": this.param.area,
+                        }, {
+                            headers: {
+                                'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                            }
                         })
                             .then(
                                 (response) => {
-                                    if (response.data.status == 200) {
+                                    console.log(response.data);
+                                    if (response.data.status == 2000) {
                                         this.$router.push('/exit')
                                     } else {
                                         this.$message.error(response.data.status);

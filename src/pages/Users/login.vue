@@ -75,7 +75,7 @@
             }
 
             return {
-                servicePath: 'http://192.168.3.96/test/',
+                servicePath: 'http://192.168.3.96/ci/public/index.php/auth/',
                 param: {
                     username: null,
                     password: null,
@@ -92,7 +92,7 @@
         created() {
             //先使用cookie尝试登录
             axios.defaults.withCredentials = true;
-            axios.get(this.servicePath + "login.php")
+            axios.get(this.servicePath + "login")
                 .then(
                     (response) => {
                         if (response.data.status == 200) {
@@ -110,7 +110,7 @@
                 this.$refs.login.validate(valid_result => {
                     if (valid_result) {// 本地校验通过
                         // axios发起post请求 ,password md5加密
-                        axios.post(this.servicePath + "login.php", {
+                        axios.post(this.servicePath + "login", {
                             "username": this.param.username,
                             "password": this.$md5(this.param.password),
                         })
