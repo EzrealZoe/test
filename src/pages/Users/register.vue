@@ -389,7 +389,8 @@
                         if (this.param.nickname == null) {
                             this.param.nickname = this.param.username;
                         }
-                        axios.post(this.servicePath + "register", {
+
+                        this.$http.post(this.servicePath + "register", {
                             "mail": this.param.mail,
                             "username": this.param.username,
                             "nickname": this.param.nickname,
@@ -399,26 +400,17 @@
                             "province": this.param.province,
                             "city": this.param.city,
                             "area": this.param.area,
-                        }, {
-                            headers: {
-                                'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                        }, {emulateJSON: true, credentials: true}).then(function (response) {
+                            if (response.data.status == 200) {
+                                this.$router.push('/exit')
+                            } else {
+                                this.$message.error("该用户名已注册！");
                             }
-                        })
-                            .then(
-                                (response) => {
-                                    console.log(response.data);
-                                    if (response.data.status == 2000) {
-                                        this.$router.push('/exit')
-                                    } else {
-                                        this.$message.error(response.data.status);
-                                    }
-                                })
-                            .catch(
-                                (err) => {
-                                    console.log(err);
-                                    this.$message.error("注册失败！");
-                                }
-                            );
+                        }, function () {
+                            this.$message.error("注册失败！");
+                        });
+
+
                     } else {   // 本地校验没有通过
                         this.$message.error("输入信息不正确!");
                         return false;

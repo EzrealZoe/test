@@ -36,7 +36,6 @@
 </template>
 
 <script>
-    import axios from "axios";
 
     export default {
         data: function () {
@@ -89,45 +88,39 @@
                 },
             };
         },
+
         created() {
-            //先使用cookie尝试登录
-            axios.defaults.withCredentials = true;
-            axios.get(this.servicePath + "login")
-                .then(
-                    (response) => {
-                        if (response.data.status == 200) {
-                            this.$router.push('/exit')
-                        }
-                    })
-                .catch(
-                    (err) => {
-                        console.log(err);
-                    }
-                );
+            //先使用session尝试登录
+            this.$http.get(this.servicePath + "login", {
+                emulateJSON: true,
+                credentials: true
+            }).then(function (response) {
+                if (response.data.status == 200) {
+                    this.$router.push('/exit')
+                }
+            }, function () {
+            });
         },
+
         methods: {
             submitForm() {
                 this.$refs.login.validate(valid_result => {
                     if (valid_result) {// 本地校验通过
-                        // axios发起post请求 ,password md5加密
-                        axios.post(this.servicePath + "login", {
+                        // 发起post请求 ,password md5加密
+                        this.$http.post(this.servicePath + "login", {
                             "username": this.param.username,
                             "password": this.$md5(this.param.password),
-                        })
-                            .then(
-                                (response) => {
-                                    if (response.data.status == 200) {
-                                        this.$router.push('/exit')
-                                    } else {
-                                        this.$message.error("账号或密码错误！");
-                                    }
-                                })
-                            .catch(
-                                (err) => {
-                                    console.log(err);
-                                    this.$message.error("账号或密码错误！");
-                                }
-                            );
+                        }, {emulateJSON: true, credentials: true}).then(function (response) {
+                            if (response.data.status == 200) {
+                                this.$router.push('/exit')
+                            } else {
+                                this.$message.error("账号或密码错误！");
+                            }
+                        }, function () {
+                            this.$message.error("账号或密码错误！");
+                        });
+
+
                     } else {   // 本地校验没有通过
                         this.$message.error("输入信息不正确!");
                         this.param.password = null;

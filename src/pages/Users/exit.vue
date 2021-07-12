@@ -16,9 +16,6 @@
 
 <script>
 
-    //import axios from "axios";
-    import axios from "axios";
-
     export default {
         data: function () {
 
@@ -27,42 +24,36 @@
 
             };
         },
-        created() {
-            //先使用cookie尝试登录
-            axios.defaults.withCredentials = true;
-            axios.get(this.servicePath + "login")
-                .then(
-                    (response) => {
-                        if (response.data.status != 200) {
-                            this.$router.push('/login')
-                        }
 
-                    })
-                .catch(
-                    (err) => {
-                        console.log(err);
-                    }
-                );
+        created() {
+            //先使用session尝试登录
+            this.$http.get(this.servicePath + "login", {
+                emulateJSON: true,
+                credentials: true
+            }).then(function (response) {
+                if (response.data.status == 200) {
+                    this.$router.push('/exit')
+                } else {
+                    this.$router.push('/login')
+                }
+            }, function () {
+            });
         },
+
         methods: {
             exit() {
-                axios.defaults.withCredentials = true;
-                axios.get(this.servicePath + "exit")
-                    .then(
-                        (response) => {
-                            if (response.data.status == 200) {
-                                this.$router.push('/login')
-                            } else {
-                                this.$message.error("退出登录失败！");
-                            }
-
-                        })
-                    .catch(
-                        (err) => {
-                            console.log(err);
-                            this.$message.error("服务器连接失败！");
-                        }
-                    );
+                this.$http.get(this.servicePath + "exit", {
+                    emulateJSON: true,
+                    credentials: true
+                }).then(function (response) {
+                    if (response.data.status == 200) {
+                        this.$router.push('/login')
+                    } else {
+                        this.$message.error("退出登录失败！");
+                    }
+                }, function () {
+                    this.$message.error("服务器连接失败！");
+                });
             }
 
         }
