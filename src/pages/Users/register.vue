@@ -396,7 +396,7 @@
                             "nickname": this.param.nickname,
                             "password": this.$md5(this.param.password1),
                             "sex": this.param.sex,
-                            "birthday": this.param.birthday,
+                            "birthday": this.param.birthday.getFullYear() + '-' + (this.param.birthday.getMonth() + 1) + '-' + this.param.birthday.getDate(),
                             "province": this.param.province,
                             "city": this.param.city,
                             "area": this.param.area,
