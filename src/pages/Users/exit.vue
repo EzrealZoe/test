@@ -31,7 +31,7 @@
                 emulateJSON: true,
                 credentials: true
             }).then(function (response) {
-                if (response.data.status == 200) {
+                if (response.data.status == 1) {
                     this.$router.push('/exit')
                 } else {
                     this.$router.push('/login')
@@ -46,7 +46,7 @@
                     emulateJSON: true,
                     credentials: true
                 }).then(function (response) {
-                    if (response.data.status == 200) {
+                    if (response.data.status == 1) {
                         this.$router.push('/login')
                     } else {
                         this.$message.error("退出登录失败！");

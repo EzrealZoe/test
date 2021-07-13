@@ -401,7 +401,7 @@
                             "city": this.param.city,
                             "area": this.param.area,
                         }, {emulateJSON: true, credentials: true}).then(function (response) {
-                            if (response.data.status == 200) {
+                            if (response.data.status == 1) {
                                 this.$router.push('/exit')
                             } else {
                                 this.$message.error("该用户名已注册！");

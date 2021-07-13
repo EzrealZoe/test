@@ -95,7 +95,7 @@
                 emulateJSON: true,
                 credentials: true
             }).then(function (response) {
-                if (response.data.status == 200) {
+                if (response.data.status == 1) {
                     this.$router.push('/exit')
                 }
             }, function () {
@@ -111,7 +111,7 @@
                             "username": this.param.username,
                             "password": this.$md5(this.param.password),
                         }, {emulateJSON: true, credentials: true}).then(function (response) {
-                            if (response.data.status == 200) {
+                            if (response.data.status == 1) {
                                 this.$router.push('/exit')
                             } else {
                                 this.$message.error("账号或密码错误！");
