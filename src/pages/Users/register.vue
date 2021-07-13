@@ -391,7 +391,7 @@
                         }
 
                         this.$http.post(this.servicePath + "register", {
-                            "mail": this.param.mail,
+                            "email": this.param.mail,
                             "username": this.param.username,
                             "nickname": this.param.nickname,
                             "password": this.$md5(this.param.password1),
