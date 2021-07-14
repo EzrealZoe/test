@@ -8,8 +8,11 @@
             <div class="main">
 
                 <div class="edit-content">
-                    <div class="edit-box" v-for="item in json" :key='item'>
-                        <a :href="item.link" class="a-text">
+                    <div class="edit-box"
+                         v-for="item in json"
+                         :key='item'>
+                        <a :href="item.link"
+                           class="a-text">
                             {{item.title}}
                         </a>
                     </div>
@@ -125,14 +128,6 @@
         min-width: 800px;
     }
 
-    .el-submenu.is-opened > .el-submenu__title .el-submenu__icon-arrow {
-        display: none;
-    }
-
-    .el-submenu > .el-submenu__title .el-submenu__icon-arrow {
-        display: none;
-    }
-
     .edit-content {
         opacity: 0.85;
         float: left;
@@ -154,7 +149,6 @@
         border-radius: 10px;
         background-color: #f6f6f6;
     }
-
 
     .a-text {
         text-align: left;

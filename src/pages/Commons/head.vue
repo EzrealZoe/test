@@ -2,26 +2,53 @@
 
     <div class="header">
         <div class="logo">{{title}}</div>
+
         <div class="item" v-if="isLogin">
-            <el-button type="primary" @click="exit">退出登录</el-button>
+            <el-button type="primary"
+                       @click="exit">
+                退出登录
+            </el-button>
         </div>
+
         <div class="item" v-if="isLogin">
-            <el-button type="primary" @click="edit">编辑帖子</el-button>
+            <el-button type="primary"
+                       @click="edit">
+                编辑帖子
+            </el-button>
         </div>
+
         <div class="item" v-if="isLogin">
-            <el-button type="primary" @click="create">发布帖子</el-button>
+            <el-button type="primary"
+                       @click="create">
+                发布帖子
+            </el-button>
         </div>
+
         <div class="item" v-if="!isLogin">
-            <el-button type="primary" @click="login">登录</el-button>
+            <el-button type="primary"
+                       @click="login">
+                登录
+            </el-button>
         </div>
         <div class="item" v-if="isAdmin">
-            <el-button type="primary" @click="login">板块管理</el-button>
+            <el-button type="primary"
+                       @click="login">
+                板块管理
+            </el-button>
         </div>
+
         <div class="item" v-if="isAdmin">
-            <el-button type="primary" @click="login">帖子管理</el-button>
+            <el-button type="primary"
+                       @click="login">
+                帖子管理
+            </el-button>
         </div>
+
         <div class="item" v-if="isAdmin">
-            <el-button type="primary" @click="login">人员管理</el-button>
+            <el-button type="primary"
+                       @click="login">
+                人员管理
+            </el-button>
         </div>
     </div>
 </template>
@@ -44,11 +71,10 @@
             }).then(function (response) {
                 if (response.data.status == 1) {
                     this.isLogin = true;
-                } else if(response.data.status == 2){
+                } else if (response.data.status == 2) {
                     this.isLogin = true;
                     this.isAdmin = true;
-                }
-                else {
+                } else {
                     this.isLogin = false;
                     this.isAdmin = false;
                 }
@@ -71,15 +97,15 @@
                 });
             },
 
-            edit(){
+            edit() {
                 this.$router.push('/edit');
             },
 
-            create(){
+            create() {
                 this.$router.push('/create');
             },
 
-            login(){
+            login() {
                 this.$router.push('/login');
             }
 

@@ -16,51 +16,51 @@ export default new Router({
             name: "index",
             path: "/",
             component: Index,
-            meta:{
-                title:'主页'
+            meta: {
+                title: '主页'
             }
         },
         {
             path: "/login",
             component: Login,
-            meta:{
-                title:'登录'
+            meta: {
+                title: '登录'
             }
         },
         {
             path: "/register",
             component: Register,
-            meta:{
-                title:'注册'
+            meta: {
+                title: '注册'
             }
         },
         {
             path: "/edit",
             component: Edit,
-            meta:{
-                title:'编辑帖子'
+            meta: {
+                title: '编辑帖子'
             }
         },
         {
             path: "/create",
             component: Create,
-            meta:{
-                title:'创建帖子'
+            meta: {
+                title: '创建帖子'
             }
         },
         {
             path: "/retrieve",
             component: RetrievePwd,
-            meta:{
-                title:'找回密码'
+            meta: {
+                title: '找回密码'
             }
         },
         {
             name: "exit",
             path: "/exit",
             component: Exit,
-            meta:{
-                title:'退出登录'
+            meta: {
+                title: '退出登录'
             }
         },
 

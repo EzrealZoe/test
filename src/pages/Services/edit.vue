@@ -6,7 +6,7 @@
 
         <div class="edit">
             <div class="main">
-                <div class="aside" >
+                <div class="aside">
                     <el-aside width="20%" class="side">
                         <el-menu :default-openeds="['1', '1']" style="height:100%;">
                             <el-menu-item index="1">
@@ -18,8 +18,11 @@
                 </div>
 
                 <div class="edit-content">
-                    <div class="edit-box" v-for="item in json" :key='item' >
-                        <a :href="item.link" class="a-text">
+                    <div class="edit-box"
+                         v-for="item in json"
+                         :key='item'>
+                        <a :href="item.link"
+                           class="a-text">
                             {{item.title}}
                         </a>
                     </div>
@@ -40,44 +43,80 @@
         },
         data() {
             return {
-                json: [{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"},{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}
-                    ,{"link":"http://www.baidu.com","title":"efwdgwgerv"}],
+                json: [{"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                    "link": "http://www.baidu.com",
+                    "title": "efwdgwgerv"
+                }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgwgerv"
+                    }
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}],
 
             }
         },
         created() {
 
         },
-        methods: {
-        },
-
-
+        methods: {},
 
 
     }
@@ -99,14 +138,6 @@
         min-width: 1100px;
     }
 
-    .el-submenu.is-opened > .el-submenu__title .el-submenu__icon-arrow {
-        display: none;
-    }
-
-    .el-submenu > .el-submenu__title .el-submenu__icon-arrow {
-        display: none;
-    }
-
     .aside {
         float: left;
         height: 100%;
@@ -115,10 +146,10 @@
     }
 
     .side {
-        min-width:200px;
-        height:60px;
-        background-color: rgb(238,241,246);
-        opacity:0.5;
+        min-width: 200px;
+        height: 60px;
+        background-color: rgb(238, 241, 246);
+        opacity: 0.5;
         border-radius: 10px;
     }
 
@@ -143,7 +174,6 @@
         border-radius: 10px;
         background-color: #f6f6f6;
     }
-
 
     .a-text {
         text-align: left;

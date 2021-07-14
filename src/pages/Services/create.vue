@@ -5,42 +5,38 @@
 
         <div class="create">
             <div class="create-wrapper">
-                <el-input
-                        type="text"
-                        placeholder="请输入帖子标题"
-                        v-model="text"
-                        maxlength="30"
-                        show-word-limit
-                >
+                <el-input type="text"
+                          placeholder="请输入帖子标题"
+                          v-model="text"
+                          maxlength="30"
+                          show-word-limit>
                 </el-input>
+
                 <div style="margin: 20px 0;"></div>
-                <el-input
-                        :autosize="{ minRows: 10, maxRows: 30}"
-                        type="textarea"
-                        placeholder="请输入内容"
-                        v-model="textarea"
-                        maxlength="255"
-                        show-word-limit
-                >
+
+                <el-input :autosize="{ minRows: 10, maxRows: 30}"
+                          type="textarea"
+                          placeholder="请输入内容"
+                          v-model="textarea"
+                          maxlength="255"
+                          show-word-limit>
                 </el-input>
+
                 <div class="item-left">
-                    <el-select
-                            v-model="forum"
-                            placeholder="请选择板块"
-                            id="province">
-                        <el-option
-                                v-for="item in optionsForum"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
+                    <el-select v-model="forum"
+                               placeholder="请选择板块"
+                               id="province">
+                        <el-option v-for="item in optionsForum"
+                                   :key="item.value"
+                                   :label="item.label"
+                                   :value="item.value">
                         </el-option>
                     </el-select>
                 </div>
+
                 <div class="item-right">
-                    <el-button
-                            type="primary"
-                            @click="exit"
-                    >
+                    <el-button type="primary"
+                               @click="commit">
                         发布帖子
                     </el-button>
                 </div>
@@ -57,7 +53,7 @@
         },
         data() {
             return {
-                forum:null,
+                forum: null,
                 optionsForum: null,
                 text: null,
                 textarea: null
