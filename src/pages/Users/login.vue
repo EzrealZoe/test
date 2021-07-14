@@ -112,12 +112,12 @@
                             "password": this.$md5(this.param.password),
                         }, {emulateJSON: true, credentials: true}).then(function (response) {
                             if (response.data.status == 1) {
-                                this.$router.push('/exit')
+                                this.$router.push('/')
                             } else {
                                 this.$message.error("账号或密码错误！");
                             }
                         }, function () {
-                            this.$message.error("账号或密码错误！");
+                            this.$message.error("服务器连接错误！");
                         });
 
 
