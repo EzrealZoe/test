@@ -15,6 +15,16 @@
                            class="a-text">
                             {{item.title}}
                         </a>
+                        <div style="float: right; margin: 10px 10px">
+                            <el-button type="primary" class="index-button" @click="del(item.id)">
+                                删除
+                            </el-button>
+                        </div>
+                        <div style="float: right; margin: 10px 0px">
+                            <el-button type="primary" class="index-button" @click="stickUp(item.id)">
+                                置顶
+                            </el-button>
+                        </div>
                     </div>
                 </div>
                 <!--清除浮动-->
@@ -25,7 +35,7 @@
     </el-scrollbar>
 </template>
 <script>
-    import vhead from "../Commons/head";
+    import vhead from "../Commons/adminHead";
 
     export default {
         components: {
@@ -37,7 +47,7 @@
                     "link": "http://www.baidu.com",
                     "title": "efwdgwgerv"
                 }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {"link": "http://www.baidu.com", "title": "efwdgw;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;ooooooooooooooooooooooooooooooooooooooooooooooooooooo;;;;;;;;;;;;;;;;;;;;;gerv"}
                     , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
                     , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
                         "link": "http://www.baidu.com",
@@ -106,7 +116,15 @@
         created() {
 
         },
-        methods: {},
+        methods: {
+            del(id){
+                console.log(id);
+            },
+
+            stickUp(id){
+                console.log(id);
+            }
+        },
 
 
     }
@@ -137,6 +155,15 @@
         margin: 5px;
         text-align: center;
         border-radius: 4px;
+    }
+
+    .index-button{
+        float:right;
+        text-align:left;
+        margin:3px 0;
+        float:left;
+        vertical-align: middle;
+        font-size: 18px
     }
 
     .index-box {

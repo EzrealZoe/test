@@ -4,9 +4,15 @@ import Register from "./pages/Users/register";
 import Login from "./pages/Users/login"
 import Exit from "./pages/Users/exit"
 import RetrievePwd from "./pages/Users/retrievePwd";
+import Post from "./pages/Services/post"
 import Edit from "./pages/Services/edit"
 import Create from "./pages/Services/create"
 import Index from "./pages/Services/index"
+import Details from "./pages/Services/details"
+import Admin from "./pages/Admin/index"
+import adminLogin from "./pages/Admin/login"
+import Forum from "./pages/Admin/forum"
+import User from "./pages/Admin/user"
 
 Vue.use(Router);
 
@@ -20,6 +26,7 @@ export default new Router({
                 title: '主页'
             }
         },
+
         {
             path: "/login",
             component: Login,
@@ -35,10 +42,25 @@ export default new Router({
             }
         },
         {
+            path: "/retrieve",
+            component: RetrievePwd,
+            meta: {
+                title: '找回密码'
+            }
+        },
+
+        {
+            path: "/post",
+            component: Post,
+            meta: {
+                title: '查看已发布的帖子'
+            }
+        },
+        {
             path: "/edit",
             component: Edit,
             meta: {
-                title: '编辑帖子'
+                title: '编辑'
             }
         },
         {
@@ -49,12 +71,43 @@ export default new Router({
             }
         },
         {
-            path: "/retrieve",
-            component: RetrievePwd,
+            path: "/d",
+            component: Details,
             meta: {
-                title: '找回密码'
+                title: '详情'
             }
         },
+
+        {
+            path: "/admin",
+            component: Admin,
+            meta: {
+                title: '主页'
+            }
+        },
+        {
+            path: "/96e79218965eb72c92a549dd5a330112",
+            component: adminLogin,
+            meta: {
+                title: '登录'
+            }
+        },
+        {
+            path: "/forum",
+            component: Forum,
+            meta: {
+                title: '板块'
+            }
+        },
+        {
+            path: "/user",
+            component: User,
+            meta: {
+                title: '用户管理'
+            }
+        },
+
+
         {
             name: "exit",
             path: "/exit",

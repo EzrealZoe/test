@@ -90,22 +90,25 @@
         },
 
         created() {
-            //先使用session尝试登录
-            this.$http.get(this.servicePath + "login", {
-                emulateJSON: true,
-                credentials: true
-            }).then(function (response) {
-                if (response.data.status == 1) {
-                    this.$router.push('/exit')
-                }
-            }, function () {
-            });
+            this.session();
         },
 
         methods: {
+            session() {
+                //先使用session尝试登录
+                this.$http.get(this.servicePath + "login", {
+                    emulateJSON: true,
+                    credentials: true
+                }).then(function (response) {
+                    if (response.data.status == 1) {
+                        this.$router.push('/')
+                    }
+                }, function () {
+                });
+            },
             submitForm() {
                 this.$refs.login.validate(valid_result => {
-                    if (valid_result) {// 本地校验通过
+                    if (valid_result) {// 本地校验通过F
                         // 发起post请求 ,password md5加密
                         this.$http.post(this.servicePath + "login", {
                             "username": this.param.username,

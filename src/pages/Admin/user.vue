@@ -11,10 +11,19 @@
                     <div class="index-box"
                          v-for="item in json"
                          :key='item'>
-                        <a :href="item.link"
-                           class="a-text">
+                        <a class="a-text">
                             {{item.title}}
                         </a>
+                        <div style="float: right; margin: 12px 10px">
+                            <el-button type="primary" class="index-button" @click="disable(item.id)">
+                                封禁
+                            </el-button>
+                        </div>
+                        <div style="float: right; margin: 12px 10px">
+                            <p>发帖数：500</p>
+                            <p>发帖数：500</p>
+                        </div>
+
                     </div>
                 </div>
                 <!--清除浮动-->
@@ -25,7 +34,7 @@
     </el-scrollbar>
 </template>
 <script>
-    import vhead from "../Commons/head";
+    import vhead from "../Commons/adminHead";
 
     export default {
         components: {
@@ -37,7 +46,10 @@
                     "link": "http://www.baidu.com",
                     "title": "efwdgwgerv"
                 }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
+                    , {
+                        "link": "http://www.baidu.com",
+                        "title": "efwdgw;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;ooooooooooooooooooooooooooooooooooooooooooooooooooooo;;;;;;;;;;;;;;;;;;;;;gerv"
+                    }
                     , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
                     , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
                         "link": "http://www.baidu.com",
@@ -106,7 +118,11 @@
         created() {
 
         },
-        methods: {},
+        methods: {
+            disable(id) {
+                console.log(id);
+            }
+        },
 
 
     }
@@ -139,6 +155,15 @@
         border-radius: 4px;
     }
 
+    .index-button {
+        float: right;
+        text-align: left;
+        margin: 3px 0;
+        float: left;
+        vertical-align: middle;
+        font-size: 18px
+    }
+
     .index-box {
         width: 100%;
         position: relative;
@@ -152,17 +177,15 @@
 
     .a-text {
         text-align: left;
-
         margin: 20px;
         float: left;
         font-size: 25px;
         height: 30px;
         overflow: hidden;
-        text-decoration: underline;
-        width: 600px;
+        width: 300px;
         white-space: nowrap;
         text-overflow: ellipsis;
-        color: #409EFF
+        color: black
     }
 
 </style>

@@ -3,51 +3,58 @@
     <div class="header">
         <div class="logo">{{title}}</div>
 
-        <div class="item" v-if="isLogin">
+        <div class="item"
+             v-if="isLogin||isAdmin">
             <el-button type="primary"
                        @click="exit">
                 退出登录
             </el-button>
         </div>
 
-        <div class="item" v-if="isLogin">
+        <div class="item"
+             v-if="isLogin">
             <el-button type="primary"
-                       @click="edit">
+                       @click="post">
                 编辑帖子
             </el-button>
         </div>
 
-        <div class="item" v-if="isLogin">
+        <div class="item"
+             v-if="isLogin">
             <el-button type="primary"
                        @click="create">
                 发布帖子
             </el-button>
         </div>
 
-        <div class="item" v-if="!isLogin">
+        <div class="item"
+             v-if="!isLogin&&!isAdmin">
             <el-button type="primary"
                        @click="login">
                 登录
             </el-button>
         </div>
-        <div class="item" v-if="isAdmin">
+        <div class="item"
+             v-if="isAdmin">
             <el-button type="primary"
-                       @click="login">
-                板块管理
+                       @click="forum">
+                版块管理
             </el-button>
         </div>
 
-        <div class="item" v-if="isAdmin">
+        <div class="item"
+             v-if="isAdmin">
             <el-button type="primary"
-                       @click="login">
-                帖子管理
-            </el-button>
-        </div>
-
-        <div class="item" v-if="isAdmin">
-            <el-button type="primary"
-                       @click="login">
+                       @click="user">
                 人员管理
+            </el-button>
+        </div>
+
+        <div class="item"
+             v-if="isAdmin">
+            <el-button type="primary"
+                       @click="admin">
+                帖子管理
             </el-button>
         </div>
     </div>
@@ -58,30 +65,32 @@
             return {
                 isLogin: false,
                 isAdmin: false,
-                title: "板块名",
+                title: "版块名",
                 servicePath: 'http://192.168.3.96/ci/public/index.php/auth/',
             };
         },
 
         created() {
-            //用session检查登录
-            this.$http.get(this.servicePath + "login", {
-                emulateJSON: true,
-                credentials: true
-            }).then(function (response) {
-                if (response.data.status == 1) {
-                    this.isLogin = true;
-                } else if (response.data.status == 2) {
-                    this.isLogin = true;
-                    this.isAdmin = true;
-                } else {
-                    this.isLogin = false;
-                    this.isAdmin = false;
-                }
-            }, function () {
-            });
+            this.session();
+
         },
         methods: {
+            //用session检查登录
+            session() {
+                this.$http.get(this.servicePath + "login", {
+                    emulateJSON: true,
+                    credentials: true
+                }).then(function (response) {
+                    if (response.data.status == 1) {
+                        this.isLogin = true;
+                    } else {
+                        this.isLogin = false;
+                        this.isAdmin = false;
+                    }
+                }, function () {
+                });
+            },
+
             exit() {
                 this.$http.get(this.servicePath + "exit", {
                     emulateJSON: true,
@@ -97,8 +106,8 @@
                 });
             },
 
-            edit() {
-                this.$router.push('/edit');
+            post() {
+                this.$router.push('/post');
             },
 
             create() {
@@ -107,7 +116,20 @@
 
             login() {
                 this.$router.push('/login');
+            },
+
+            forum() {
+                this.$router.push('/forum');
+            },
+
+            user() {
+                this.$router.push('/user');
+            },
+
+            admin() {
+                this.$router.push('/admin');
             }
+
 
         },
     };

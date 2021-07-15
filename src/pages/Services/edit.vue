@@ -1,120 +1,24 @@
 <template>
-
-    <el-scrollbar style="height:100%">
+    <div>
         <vhead style="min-width: 1300px;">
         </vhead>
+        <editor>
+        </editor>
 
-        <div class="edit">
-            <div class="main">
-                <div class="aside">
-                    <el-aside width="20%" class="side">
-                        <el-menu :default-openeds="['1', '1']" style="height:100%;">
-                            <el-menu-item index="1">
-                                <i class="el-icon-message"></i>
-                                <span slot="title">已发布的贴子</span>
-                            </el-menu-item>
-                        </el-menu>
-                    </el-aside>
-                </div>
-
-                <div class="edit-content">
-                    <div class="edit-box"
-                         v-for="item in json"
-                         :key='item'>
-                        <a :href="item.link"
-                           class="a-text">
-                            {{item.title}}
-                        </a>
-                    </div>
-                </div>
-                <!--清除浮动-->
-                <div style="clear:both"></div>
-            </div>
-
-        </div>
-    </el-scrollbar>
+    </div>
 </template>
 <script>
     import vhead from "../Commons/head";
+    import editor from "../Commons/editor";
 
     export default {
         components: {
-            vhead,
-        },
-        data() {
-            return {
-                json: [{"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                    "link": "http://www.baidu.com",
-                    "title": "efwdgwgerv"
-                }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}],
-
-            }
+            vhead,editor,
         },
         created() {
-
+            editor.created = function(){
+                this.button="编辑完毕";
+            }
         },
         methods: {},
 
@@ -123,71 +27,4 @@
 </script>
 
 <style scoped>
-
-    .edit {
-        margin: auto;
-        width: 100%;
-        min-width: 980px;
-        min-height: 1050px;
-        background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed;
-    }
-
-    .main {
-        margin: auto;
-        width: 70%;
-        min-width: 1100px;
-    }
-
-    .aside {
-        float: left;
-        height: 100%;
-        min-height: 700px;
-        margin: 10px 0;
-    }
-
-    .side {
-        min-width: 200px;
-        height: 60px;
-        background-color: rgb(238, 241, 246);
-        opacity: 0.5;
-        border-radius: 10px;
-    }
-
-    .edit-content {
-        opacity: 0.85;
-        float: left;
-        width: 80%;
-        overflow: visible;
-        min-width: 760px;
-        margin: 5px;
-        text-align: center;
-        border-radius: 4px;
-    }
-
-    .edit-box {
-        width: 100%;
-        position: relative;
-        height: 70px;
-        margin: 5px 5px 15px 5px;
-        border-top: solid 1px rgba(121, 146, 185, 0.54);
-        box-shadow: 0 2px 4px 0 rgba(121, 146, 185, 0.54);
-        border-radius: 10px;
-        background-color: #f6f6f6;
-    }
-
-    .a-text {
-        text-align: left;
-
-        margin: 20px;
-        float: left;
-        font-size: 25px;
-        height: 30px;
-        overflow: hidden;
-        text-decoration: underline;
-        width: 600px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        color: #409EFF
-    }
-
 </style>
