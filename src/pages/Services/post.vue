@@ -19,9 +19,10 @@
 
                 <div class="edit-content">
                     <div class="edit-box"
-                         v-for="item in json"
+                         v-for="item in posts"
                          :key='item.id'>
-                        <a :href="item.link"
+                        <a @click="jump(item.id)"
+                           style="cursor:pointer"
                            class="a-text">
                             {{item.title}}
                         </a>
@@ -53,27 +54,53 @@
         },
         data() {
             return {
-                json: [{"link": "http://www.baidu.com", "title": "efwdgwgerv","id":"55"}, {
-                    "link": "http://www.baidu.com",
-                    "title": "efwdgwgerv","id":"755"
-                }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv","id":"550"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv","id":"552"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv","id":"555"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv","id":"585"
-                    },]
-
+                posts: [],
+                servicePath: 'http://192.168.3.96/ci/public/index.php/',
 
             }
         },
+
         created() {
+            this.$http.get(this.servicePath + "post/getPosted", {
+                emulateJSON: true,
+                credentials: true
+            }).then(function (response) {
+                if (response.data.status == 1) {
+                    this.posts = response.data.data;
+                } else {
+                    this.$message.error("数据格式不通过");
+                }
+            }, function () {
+                this.$message.error("服务器连接错误！");
+            });
+
 
         },
+
         methods: {
-            edit(id){
-                this.$router.push('/edit?id='+id);
+            edit(id) {
+                this.$router.push('/edit?id=' + id);
             },
+
+            del(id) {
+                this.$http.post(this.servicePath + "post/del", {
+                    "id": id,
+                }, {emulateJSON: true, credentials: true}).then(function (response) {
+                    if (response.data.status == 1) {
+                        this.$message.success("帖子已删除！");
+                        this.$router.go(0);
+
+                    } else {
+                        this.$message.error("删除失败！");
+                    }
+                }, function () {
+                    this.$message.error("服务器连接错误！");
+                });
+            },
+
+            jump(id) {
+                this.$router.push('/d?id=' + id);
+            }
         },
 
 
@@ -85,7 +112,7 @@
     .edit {
         margin: auto;
         width: 100%;
-        min-width: 980px;
+        min-width: 1300px;
         min-height: 1050px;
         background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed;
     }
@@ -133,14 +160,15 @@
         background-color: #f6f6f6;
     }
 
-    .post-button{
-        float:right;
-        text-align:left;
-        margin:3px 0;
-        float:left;
+    .post-button {
+        float: right;
+        text-align: left;
+        margin: 3px 0;
+        float: left;
         vertical-align: middle;
         font-size: 18px
     }
+
     .a-text {
         text-align: left;
 

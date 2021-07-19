@@ -1,6 +1,5 @@
 <template>
-
-    <el-scrollbar style="height:100%">
+    <el-scrollbar style="height:100%;width: 100%">
         <vhead style="min-width: 1300px;">
         </vhead>
 
@@ -9,19 +8,55 @@
 
                 <div class="details-content">
                     <div class="details-box"
-                         v-for="item in json"
+                         v-for="item in post"
                          :key='item'>
                         <a class="a-text">
                             {{item.content}}
                         </a>
                         <a class="poster">
-                            {{item.poster}}
+                            楼主id:{{item.user_id}}
+                        </a>
+                    </div>
+                    <div class="details-box"
+                         v-for="item in comments"
+                         :key='item'>
+                        <a class="a-text">
+                            {{item.content}}
+                        </a>
+                        <a class="poster">
+                            用户id:{{item.user_id}}
                         </a>
                     </div>
                 </div>
-                <!--清除浮动-->
-                <div style="clear:both"></div>
+
+
+                <el-input :autosize="{ minRows: 10, maxRows: 30}"
+                          type="textarea"
+                          placeholder="请输入内容"
+                          v-model="text"
+                          maxlength="255"
+                          show-word-limit
+                          style="margin-left: 10px">
+                </el-input>
+
+                <el-button type="primary"
+                           class="item-right"
+                           @click="commit"
+                >
+                    发布评论
+                </el-button>
+                <el-input :autosize="{ minRows: 1, maxRows: 30}"
+                          type="textarea"
+                          placeholder="请输入内容"
+                          v-model="text"
+                          maxlength="255"
+                          show-word-limit
+                          style="margin-left: 10px;visibility: hidden">
+                </el-input>
+
+
             </div>
+
 
         </div>
     </el-scrollbar>
@@ -33,96 +68,75 @@
         components: {
             vhead,
         },
+
         data() {
             return {
-                json: [{"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                    "poster": "http://www.baidu.com",
-                    "content": "efwdgwgerv"
-                }
-                    , {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgw;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;ooooooooooooooooooooooooooooooooooooooooooooooooooooo;;;;;;;;;;;;;;;;;;;;;gerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}, {
-                        "poster": "http://www.baidu.com",
-                        "content": "efwdgwgerv"
-                    }
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}
-                    , {"poster": "http://www.baidu.com", "content": "efwdgwgerv"}],
+                text: '',
+                post: [],
+                comments: [],
+                servicePath: 'http://192.168.3.96/ci/public/index.php/',
 
             }
         },
-        created() {
 
+        created() {
+            this.$http.get(this.servicePath + "post/viewPost?id=" + this.$route.query.id).then(function (response) {
+                if (response.data.status != 1 ||response.data.data.length<1)  {
+                    this.$router.push('/');
+                    this.$message.error("找不到该帖子！");
+                }
+                else{
+                    document.title = response.data.data[0]['title'];
+                    this.post = response.data.data;
+                }
+            }, function () {
+                this.$message.error("服务器连接错误！");
+            });
+
+            this.$http.get(this.servicePath + "comment/getComments?id=" + this.$route.query.id).then(function (response) {
+                if (response.data.status != 1)  {
+                    this.$router.push('/');
+                    this.$message.error("数据格式不通过!");
+                }
+                else{
+                    this.comments = response.data.data;
+                }
+            }, function () {
+                this.$message.error("服务器连接错误！");
+            });
         },
-        methods: {},
+
+        methods: {
+            commit(){
+                if (this.text.length > 0) {
+                    this.$http.post(this.servicePath + "comment/create", {
+                        "post_id": this.$route.query.id,
+                        "content": this.text,
+                    }, {emulateJSON: true, credentials: true}).then(function (response) {
+                        if (response.data.status == 1) {
+                            this.$router.go(0);
+                            this.$message.success("评论已发布！");
+                        } else {
+                            this.$message.error("格式错误！");
+                        }
+                    }, function () {
+                        this.$message.error("服务器连接错误！");
+                    });
+                } else {
+                    this.$message.error("评论不能为空！");
+                }
+            }
+        },
 
 
     }
 </script>
 
 <style scoped>
-
     .details {
         margin: auto;
         width: 100%;
-        min-width: 980px;
+        min-width: 1300px;
         min-height: 1050px;
         background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed;
     }
@@ -174,6 +188,12 @@
         width: 120px;
         font-size: 10px;
         color: grey
+    }
+
+    .item-right {
+        float: right;
+        margin-top: 10px;
+        margin-right: -10px;
     }
 
 

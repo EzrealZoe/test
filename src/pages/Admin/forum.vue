@@ -165,7 +165,7 @@
     .details {
         margin: auto;
         width: 100%;
-        min-width: 980px;
+        min-width: 1300px;
         min-height: 1050px;
         background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed;
     }

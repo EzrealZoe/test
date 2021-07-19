@@ -21,11 +21,11 @@
             <div class="item-left">
                 <el-select v-model="forum"
                            placeholder="请选择板块"
-                           id="province">
+                           id="forum">
                     <el-option v-for="item in optionsForum"
-                               :key="item.value"
-                               :label="item.label"
-                               :value="item.value">
+                               :key="item.id"
+                               :label="item.topic"
+                               :value="item.id">
                     </el-option>
                 </el-select>
             </div>
@@ -45,9 +45,10 @@
             return {
                 forum: null,
                 optionsForum: null,
-                text: null,
-                textarea: null,
+                text: '',
+                textarea: '',
                 button:null,
+                servicePath: 'http://192.168.3.96/ci/public/index.php/',
             }
         },
         created() {
@@ -82,7 +83,7 @@
     .create {
         margin: auto;
         width: 100%;
-        min-width: 980px;
+        min-width: 1300px;
         min-height: 1050px;
         background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed;
     }

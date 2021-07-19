@@ -16,6 +16,12 @@ import User from "./pages/Admin/user"
 
 Vue.use(Router);
 
+// 解决路由push到本页面报错问题
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
 export default new Router({
     routes: [
         {
@@ -74,7 +80,7 @@ export default new Router({
             path: "/d",
             component: Details,
             meta: {
-                title: '详情'
+                title: ''
             }
         },
 

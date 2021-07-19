@@ -13,6 +13,7 @@ router.beforeEach((to, from, next) => {
     }
     next()
 })
+
 Vue.use(VueResource)
 Vue.use(ElementUI, {size: "small"});
 

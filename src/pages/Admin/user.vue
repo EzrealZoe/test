@@ -9,10 +9,10 @@
 
                 <div class="index-content">
                     <div class="index-box"
-                         v-for="item in json"
-                         :key='item'>
+                         v-for="item in users"
+                         :key='item.id'>
                         <a class="a-text">
-                            {{item.title}}
+                            {{item.username}}
                         </a>
                         <div style="float: right; margin: 12px 10px">
                             <el-button type="primary" class="index-button" @click="disable(item.id)">
@@ -20,8 +20,8 @@
                             </el-button>
                         </div>
                         <div style="float: right; margin: 12px 10px">
-                            <p>发帖数：500</p>
-                            <p>发帖数：500</p>
+                            <p>发帖数：{{item.post_num}}</p>
+                            <p>回复数：{{item.comment_num}}</p>
                         </div>
 
                     </div>
@@ -42,81 +42,25 @@
         },
         data() {
             return {
-                json: [{"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                    "link": "http://www.baidu.com",
-                    "title": "efwdgwgerv"
-                }
-                    , {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgw;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;ooooooooooooooooooooooooooooooooooooooooooooooooooooo;;;;;;;;;;;;;;;;;;;;;gerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}],
-
+                users: [],
+                servicePath: 'http://192.168.3.96/ci/public/index.php/',
             }
         },
         created() {
+            this.$http.get(this.servicePath + "auth/getUsers", {
+                emulateJSON: true,
+                credentials: true
+            }).then(function (response) {
+                if (response.data.status != 1) {
+                    this.$router.push("/");
+                    this.$message.error("错误！");
 
+                } else {
+                    this.users = response.data.data;
+                }
+            }, function () {
+                this.$message.error("服务器连接错误！");
+            });
         },
         methods: {
             disable(id) {
@@ -133,7 +77,7 @@
     .index {
         margin: auto;
         width: 100%;
-        min-width: 980px;
+        min-width: 1300px;
         min-height: 1050px;
         background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed;
     }

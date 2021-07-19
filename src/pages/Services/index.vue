@@ -9,9 +9,9 @@
 
                 <div class="index-content">
                     <div class="index-box"
-                         v-for="item in json"
-                         :key='item'>
-                        <a :href="item.link"
+                         v-for="item in posts"
+                         :key='item.id'>
+                        <a @click="jump(item.id)"
                            class="a-text">
                             {{item.title}}
                         </a>
@@ -33,80 +33,43 @@
         },
         data() {
             return {
-                json: [{"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                    "link": "http://www.baidu.com",
-                    "title": "efwdgwgerv"
-                }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}, {
-                        "link": "http://www.baidu.com",
-                        "title": "efwdgwgerv"
-                    }
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}
-                    , {"link": "http://www.baidu.com", "title": "efwdgwgerv"}],
+                forum: 1,
+                posts: [],
+                servicePath: 'http://192.168.3.96/ci/public/index.php/',
 
             }
         },
         created() {
+            if(this.$route.query.f!=null){
+                this.forum = this.$route.query.f;
+            }
+            this.$http.get(this.servicePath + "forum/getTopic?id="+this.forum).then(function (response) {
+                if (response.data.status != 1 || response.data.data.length<1) {
+                    this.$router.push("/");
+                    this.$message.error("不存在该版块");
 
+                } else {
+                    document.title = response.data.data[0]['topic'] + "版块";
+                }
+            }, function () {
+                this.$message.error("服务器连接错误！");
+            });
+
+            this.$http.get(this.servicePath + "post/getPosts?f="+this.forum).then(function (response) {
+                if (response.data.status == 1) {
+                    this.posts = response.data.data;
+                } else {
+                    this.$message.error("数据格式不通过");
+                }
+            }, function () {
+                this.$message.error("服务器连接错误！");
+            });
         },
-        methods: {},
+        methods: {
+            jump(id) {
+                this.$router.push('/d?id=' + id);
+            }
+        },
 
 
     }
@@ -117,7 +80,7 @@
     .index {
         margin: auto;
         width: 100%;
-        min-width: 980px;
+        min-width: 1300px;
         min-height: 1050px;
         background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed;
     }
@@ -152,7 +115,7 @@
 
     .a-text {
         text-align: left;
-
+        cursor:pointer;
         margin: 20px;
         float: left;
         font-size: 25px;

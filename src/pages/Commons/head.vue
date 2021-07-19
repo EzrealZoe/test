@@ -1,7 +1,6 @@
 <template>
 
     <div class="header">
-        <div class="logo">{{title}}</div>
 
         <div class="item"
              v-if="isLogin||isAdmin">
@@ -57,6 +56,13 @@
                 帖子管理
             </el-button>
         </div>
+
+        <div class="item">
+            <el-button type="primary"
+                       @click="index">
+                主页
+            </el-button>
+        </div>
     </div>
 </template>
 <script>
@@ -65,7 +71,6 @@
             return {
                 isLogin: false,
                 isAdmin: false,
-                title: "版块名",
                 servicePath: 'http://192.168.3.96/ci/public/index.php/auth/',
             };
         },
@@ -128,7 +133,11 @@
 
             admin() {
                 this.$router.push('/admin');
-            }
+            },
+
+            index() {
+                this.$router.push('/');
+            },
 
 
         },

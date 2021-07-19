@@ -186,9 +186,7 @@
 </template>
 
 <script>
-    //import axios from "axios";
     import {c_district, district_cate} from "E:/fore/src/assets/js/common";
-    import axios from "axios";
     // ES5.0 6.0语法，创建默认Vue对象
     export default {
         data() {
@@ -383,7 +381,6 @@
         methods: {
             //提交
             submitForm() {
-                axios.defaults.withCredentials = true;
                 this.$refs.register.validate(valid_result => {
                     if (valid_result) {   // 本地校验通过
                         if (this.param.nickname == null) {
