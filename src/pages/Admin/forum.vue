@@ -8,18 +8,27 @@
                 <div class="container">
                     <div class="drag-box">
                         <div class="drag-box-item">
-                            <div class="item-title">版块</div>
-                            <draggable v-model="doing" @remove="removeHandle" :options="dragOptions">
-                                <transition-group tag="div" id="forum" class="item-ul">
-                                    <div v-for="item in doing" class="drag-list" :key="item.id">
-                                        {{item.content}}
+                            <div class="item-title">
+                                版块
+                            </div>
+                            <draggable v-model="forum"
+                                       @remove="removeHandle"
+                                       :options="dragOptions">
+                                <transition-group tag="div"
+                                                  id="forum"
+                                                  class="item-ul">
+                                    <div v-for="item in forum"
+                                         class="drag-list"
+                                         :key="item.id"
+                                         :id="item.id">
+                                        {{item.topic}}
                                     </div>
                                 </transition-group>
                             </draggable>
                         </div>
                         <div class="drag-box-item">
                             <div class="item-title">拖拽至此以删除</div>
-                            <draggable v-model="doing" :options="dragOptions">
+                            <draggable :options="dragOptions">
                                 <transition-group tag="div" id="delete" class="item-ul">
                                 </transition-group>
                             </draggable>
@@ -46,7 +55,7 @@
 
 <script>
     import draggable from 'vuedraggable'
-    import vhead from "../Commons/head";
+    import vhead from "../Commons/adminHead";
 
     export default {
         components: {
@@ -60,82 +69,23 @@
                     group: 'sortlist',
                     ghostClass: 'ghost-style'
                 },
-                forum: [
-                    {
-                        id: 1,
-                        content: '开发图表组件'
-                    },
-                    {
-                        id: 2,
-                        content: '开发拖拽组件'
-                    },
-                    {
-                        id: 3,
-                        content: '开发权限测试组件'
-                    },
-                    {
-                        id: 4,
-                        content: '开发权限测试组件'
-                    },
-                    {
-                        id: 5,
-                        content: '开发权限测试组件'
-                    },
-                    {
-                        id: 6,
-                        content: '开发权限测试组件'
-                    },
-                    {
-                        id: 7,
-                        content: '27727827'
-                    },
-                    {
-                        id: 8,
-                        content: '27727827'
-                    },
-                    {
-                        id: 9,
-                        content: '27727827'
-                    },
-                    {
-                        id: 10,
-                        content: '27727827'
-                    },
-                    {
-                        id: 11,
-                        content: '27727827'
-                    }
-                ],
-                doing: [
-                    {
-                        id: 1,
-                        content: '开发登录注册页面'
-                    },
-                    {
-                        id: 2,
-                        content: '开发头部组件'
-                    },
-                    {
-                        id: 3,
-                        content: '开发表格相关组件'
-                    },
-                    {
-                        id: 4,
-                        content: '开发表单相关组件'
-                    }
-                ],
-                done: [
-                    {
-                        id: 1,
-                        content: '初始化项目，生成工程目录，完成相关配置'
-                    },
-                    {
-                        id: 2,
-                        content: '开发项目整体框架'
-                    }
-                ]
+                servicePath: 'http://192.168.3.96/ci/public/index.php/',
+                forum: [],
             }
         },
+
+        created() {
+            this.$http.get(this.servicePath + "forum/getForums").then(function (response) {
+                if (response.data.status == 1) {
+                    this.forum = response.data.data;
+                } else {
+                    this.$message.error("数据格式不通过");
+                }
+            }, function () {
+                this.$message.error("服务器连接错误！");
+            });
+        },
+
         methods: {
             add() {
                 this.$prompt('请输入版块', '提示', {
@@ -144,18 +94,56 @@
                     inputPattern: /^.{2,8}$/,
                     inputErrorMessage: '版块格式不正确'
                 }).then(({value}) => {
-                    this.$message({
-                        type: 'success',
-                        message: '添加了版块: ' + value
+                    this.$http.post(this.servicePath + "forum/create", {
+                        "topic": value,
+                    }, {emulateJSON: true, credentials: true}).then(function (response) {
+                        if (response.data.status != 1) {
+                            this.$message.error("添加版块出现错误！");
+                        }
+                        this.$router.go(0);
+                    }, function () {
+                        this.$message.error("服务器连接错误！");
                     });
                 }).catch(() => {
 
                 });
             },
+
             removeHandle(event) {
-                console.log(event);
-                this.$message.success(`从 ${event.from.id} 移动到 ${event.to.id} `);
+                this.$http.post(this.servicePath + "forum/del", {
+                    "id": event.item.id,
+                }, {emulateJSON: true, credentials: true}).then(function (response) {
+                    if (response.data.status != 1) {
+                        this.$message.error("添加版块出现错误！");
+                    }
+                    this.$router.go(0);
+                }, function () {
+                    this.$message.error("服务器连接错误！");
+                });
+            },
+
+            commit() {
+                let data = [];
+                for (let i = 0; i < this.forum.length; ++i) {
+                    data.push({"id": this.forum[i].id, "order": i + 1})
+                }
+
+                this.$http.post(this.servicePath + "forum/changeOrder", {
+                    "data": data,
+                }, {emulateJSON: true, credentials: true}).then(function (response) {
+                    if (response.data.status != 1) {
+                        this.$message.error("添加版块出现错误！");
+                    } else {
+                        this.$message.success("顺序修改成功！");
+                    }
+
+                }, function () {
+                    this.$message.error("服务器连接错误！");
+                });
+
+                console.log(data);
             }
+
         }
     }
 

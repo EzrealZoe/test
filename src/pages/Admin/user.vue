@@ -15,8 +15,8 @@
                             {{item.username}}
                         </a>
                         <div style="float: right; margin: 12px 10px">
-                            <el-button type="primary" class="index-button" @click="disable(item.id)">
-                                封禁
+                            <el-button type="primary" class="index-button" @click="disable(item.id,item.disable=='1')">
+                                {{(item.disable=="1")?"解封":"封禁"}}
                             </el-button>
                         </div>
                         <div style="float: right; margin: 12px 10px">
@@ -53,8 +53,6 @@
             }).then(function (response) {
                 if (response.data.status != 1) {
                     this.$router.push("/");
-                    this.$message.error("错误！");
-
                 } else {
                     this.users = response.data.data;
                 }
@@ -63,8 +61,32 @@
             });
         },
         methods: {
-            disable(id) {
-                console.log(id);
+            disable(id, disabled) {
+                if (disabled) {
+                    this.$http.post(this.servicePath + "auth/unblock", {
+                        "id": id,
+                    }, {emulateJSON: true, credentials: true}).then(function (response) {
+                        if (response.data.status != 1) {
+                            this.$message.error("解封出现错误！");
+                        } else {
+                            this.$router.go(0);
+                        }
+                    }, function () {
+                        this.$message.error("服务器连接错误！");
+                    });
+                } else {
+                    this.$http.post(this.servicePath + "auth/block", {
+                        "id": id,
+                    }, {emulateJSON: true, credentials: true}).then(function (response) {
+                        if (response.data.status != 1) {
+                            this.$message.error("封禁出现错误！");
+                        } else {
+                            this.$router.go(0);
+                        }
+                    }, function () {
+                        this.$message.error("服务器连接错误！");
+                    });
+                }
             }
         },
 

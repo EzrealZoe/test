@@ -11,7 +11,7 @@
         </div>
 
         <div class="item"
-             v-if="isLogin">
+             v-if="isLogin&&!disable">
             <el-button type="primary"
                        @click="post">
                 编辑帖子
@@ -19,7 +19,7 @@
         </div>
 
         <div class="item"
-             v-if="isLogin">
+             v-if="isLogin&&!disable">
             <el-button type="primary"
                        @click="create">
                 发布帖子
@@ -71,6 +71,7 @@
             return {
                 isLogin: false,
                 isAdmin: false,
+                disable: false,
                 servicePath: 'http://192.168.3.96/ci/public/index.php/auth/',
             };
         },
@@ -88,9 +89,15 @@
                 }).then(function (response) {
                     if (response.data.status == 1) {
                         this.isLogin = true;
+                        this.disable = (response.data.disable == "1");
                     } else {
                         this.isLogin = false;
                         this.isAdmin = false;
+                    }
+                    if(this.disable||!this.isLogin){
+                        if(this.$route.path=='/edit'||this.$route.path=='/create'){
+                            this.$router.push('/');
+                        }
                     }
                 }, function () {
                 });
@@ -138,6 +145,12 @@
             index() {
                 this.$router.push('/');
             },
+
+            getDisable() {
+                console.log(88);
+                return this.disable;
+            },
+
 
 
         },

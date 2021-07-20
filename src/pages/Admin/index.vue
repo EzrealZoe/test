@@ -13,7 +13,7 @@
                          :key='item.id'>
                         <a @click="jump(item.id)"
                            class="a-text">
-                           {{item.title}}
+                            {{item.title}}
                         </a>
                         <div style="float: right; margin: 10px 10px">
                             <el-button type="primary"
@@ -159,7 +159,7 @@
 
     .a-text {
         text-align: left;
-        cursor:pointer;
+        cursor: pointer;
         margin: 20px;
         float: left;
         font-size: 25px;

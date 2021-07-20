@@ -40,11 +40,11 @@
             }
         },
         created() {
-            if(this.$route.query.f!=null){
+            if (this.$route.query.f != null) {
                 this.forum = this.$route.query.f;
             }
-            this.$http.get(this.servicePath + "forum/getTopic?id="+this.forum).then(function (response) {
-                if (response.data.status != 1 || response.data.data.length<1) {
+            this.$http.get(this.servicePath + "forum/getTopic?id=" + this.forum).then(function (response) {
+                if (response.data.status != 1 || response.data.data.length < 1) {
                     this.$router.push("/");
                     this.$message.error("不存在该版块");
 
@@ -55,7 +55,7 @@
                 this.$message.error("服务器连接错误！");
             });
 
-            this.$http.get(this.servicePath + "post/getPosts?f="+this.forum).then(function (response) {
+            this.$http.get(this.servicePath + "post/getPosts?f=" + this.forum).then(function (response) {
                 if (response.data.status == 1) {
                     this.posts = response.data.data;
                 } else {
@@ -115,7 +115,7 @@
 
     .a-text {
         text-align: left;
-        cursor:pointer;
+        cursor: pointer;
         margin: 20px;
         float: left;
         font-size: 25px;

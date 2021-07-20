@@ -68,6 +68,7 @@
                 if (response.data.status == 1) {
                     this.posts = response.data.data;
                 } else {
+                    this.$router.push('/');
                     this.$message.error("数据格式不通过");
                 }
             }, function () {

@@ -81,11 +81,10 @@
 
         created() {
             this.$http.get(this.servicePath + "post/viewPost?id=" + this.$route.query.id).then(function (response) {
-                if (response.data.status != 1 ||response.data.data.length<1)  {
+                if (response.data.status != 1 || response.data.data.length < 1) {
                     this.$router.push('/');
                     this.$message.error("找不到该帖子！");
-                }
-                else{
+                } else {
                     document.title = response.data.data[0]['title'];
                     this.post = response.data.data;
                 }
@@ -94,11 +93,10 @@
             });
 
             this.$http.get(this.servicePath + "comment/getComments?id=" + this.$route.query.id).then(function (response) {
-                if (response.data.status != 1)  {
+                if (response.data.status != 1) {
                     this.$router.push('/');
                     this.$message.error("数据格式不通过!");
-                }
-                else{
+                } else {
                     this.comments = response.data.data;
                 }
             }, function () {
@@ -107,7 +105,7 @@
         },
 
         methods: {
-            commit(){
+            commit() {
                 if (this.text.length > 0) {
                     this.$http.post(this.servicePath + "comment/create", {
                         "post_id": this.$route.query.id,
@@ -116,8 +114,10 @@
                         if (response.data.status == 1) {
                             this.$router.go(0);
                             this.$message.success("评论已发布！");
+                        } else if (response.data.status == 3002) {
+                            this.$message.error("封禁中！");
                         } else {
-                            this.$message.error("格式错误！");
+                            this.$message.error("错误！");
                         }
                     }, function () {
                         this.$message.error("服务器连接错误！");
